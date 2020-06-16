@@ -1,7 +1,7 @@
 --||@SuperCoolNinja.||--
 
 --> Version de la Resource : 
-local LatestVersion = ''; CurrentVersion = '1.0'
+local LatestVersion = ''; CurrentVersion = '1.1'
 PerformHttpRequest('https://raw.githubusercontent.com/NinjaSourceV2/GTA_MenuAdmin/master/VERSION', function(Error, NewestVersion, Header)
     LatestVersion = NewestVersion
     if CurrentVersion ~= NewestVersion then
