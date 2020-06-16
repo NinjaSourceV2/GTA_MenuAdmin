@@ -1,6 +1,7 @@
 fx_version 'bodacious'
 game 'gta5'
 
+resource_version '1.0'
 
 files {
     'json/**/*'
