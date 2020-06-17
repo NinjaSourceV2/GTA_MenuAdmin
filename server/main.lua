@@ -1,7 +1,7 @@
 --||@SuperCoolNinja.||--
 
 --> Version de la Resource : 
-local LatestVersion = ''; CurrentVersion = '1.1'
+local LatestVersion = ''; CurrentVersion = '1.2'
 PerformHttpRequest('https://raw.githubusercontent.com/NinjaSourceV2/GTA_MenuAdmin/master/VERSION', function(Error, NewestVersion, Header)
     LatestVersion = NewestVersion
     if CurrentVersion ~= NewestVersion then
@@ -41,8 +41,8 @@ AddEventHandler("GTA:CheckRoleAdmin", function()
 	local source = source
 	local license = GetPlayerIdentifiers(source)[1]
 
-	exports.ghmattimysql:execute("SELECT * FROM gta_joueurs WHERE license = @username", {['@username'] = license}, function(result)
-		if result[1].isAdmin == 1 then
+	exports.ghmattimysql:scalar("SELECT isAdmin FROM gta_joueurs WHERE ?", {{['license'] = license}}, function(isAdmin)
+		if isAdmin then
 			TriggerClientEvent("GTA:UpdateRoleAdmin", source)
 		end
 	end)
