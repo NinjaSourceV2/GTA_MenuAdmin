@@ -5,13 +5,12 @@ files {
     'json/**/*'
 }
 
-dependencies {'ghmattimysql'}
-
 client_scripts {
     'client/main.lua',
     'client/menu.lua'
 }
 
 server_scripts {
+ 	'@mysql-async/lib/MySQL.lua',
     'server/main.lua'
 }

@@ -277,11 +277,7 @@ function ButtonSelected(button)
 		elseif btn == "banjoueur" then
 			local reasonBan = RaisonDuBan(50)
             if tostring(reasonBan) == nil then
-                exports.nCoreGTA:nNotificationMain({
-                    text = "Veuillez inserer une raison correct !",
-                    type = 'basGauche',
-                    nTimeNotif = 6000,
-                })
+				exports.nCoreGTA:ShowNotification("Veuillez inserer une raison correct !")
                 return nil
             end
 			TriggerServerEvent("GTA:BannirJoueur", thisPlayerServerID, tostring(reasonBan))

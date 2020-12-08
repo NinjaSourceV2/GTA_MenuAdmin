@@ -1,7 +1,7 @@
 --||@SuperCoolNinja.||--
 
 --> Version de la Resource : 
-local LatestVersion = ''; CurrentVersion = '1.2'
+local LatestVersion = ''; CurrentVersion = '1.3'
 PerformHttpRequest('https://raw.githubusercontent.com/NinjaSourceV2/GTA_MenuAdmin/master/VERSION', function(Error, NewestVersion, Header)
     LatestVersion = NewestVersion
     if CurrentVersion ~= NewestVersion then
@@ -30,7 +30,8 @@ AddEventHandler("GTA:BannirJoueur", function(targetID, reason)
 	TriggerEvent('GTA:GetInfoJoueurs', targetid, function(data)
 		local name = data.nom
 		local prenom = data.prenom
-		exports.ghmattimysql:execute("INSERT INTO gta_joueurs_banni (`license`, `nom`, `prenom`, `isBanned`, `raison`) VALUES (@username, @nom, @prenom, @isBanned, @raison)", {['@username'] = targetid, ['@nom'] = tostring(name), ['@prenom'] = tostring(prenom), ['@isBanned'] = 1, ['@raison'] = tostring(reason)})
+
+		MySQL.Sync.execute("INSERT INTO gta_joueurs_banni (`license`, `nom`, `prenom`, `isBanned`, `raison`) VALUES (@username, @nom, @prenom, @isBanned, @raison)", {['@username'] = targetid, ['@nom'] = tostring(name), ['@prenom'] = tostring(prenom), ['@isBanned'] = 1, ['@raison'] = tostring(reason)})
 		DropPlayer(targetID, "VOUS AVEZ ÉTÉ BANNI DÉFINITIVEMENT RAISON : " ..reason .. ".")
 		TriggerClientEvent('nMenuNotif:showNotification', source, "~r~Joueur Bannis.")
 	end)
@@ -41,11 +42,10 @@ AddEventHandler("GTA:CheckRoleAdmin", function()
 	local source = source
 	local license = GetPlayerIdentifiers(source)[1]
 
-	exports.ghmattimysql:scalar("SELECT isAdmin FROM gta_joueurs WHERE ?", {{['license'] = license}}, function(isAdmin)
-		if isAdmin then
-			TriggerClientEvent("GTA:UpdateRoleAdmin", source)
-		end
-	end)
+	local isAdmin = MySQL.Sync.fetchScalar("SELECT isAdmin FROM gta_joueurs WHERE license = @license", {['@license'] = license})
+	if isAdmin then
+		TriggerClientEvent("GTA:UpdateRoleAdmin", source)
+	end
 end)
 
 

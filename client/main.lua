@@ -21,17 +21,9 @@ AddEventHandler("GTA:toggleGodmode", function()
   godmode = not godmode
   SetEntityInvincible(GetPlayerPed(-1), godmode)
   if godmode then
-	exports.nCoreGTA:nNotificationMain({
-		text = "Vous êtes sur-humain avec god mode",
-		type = 'basGauche',
-		nTimeNotif = 6000,
-	})
+    exports.nCoreGTA:ShowNotification("GodMode ~g~activé")
   else
-	exports.nCoreGTA:nNotificationMain({
-		text = "Vous êtes humain sans god mode",
-		type = 'basGauche',
-		nTimeNotif = 6000,
-	})
+    exports.nCoreGTA:ShowNotification("GodMode ~r~désactivé")
   end
 end)
 
@@ -140,11 +132,7 @@ function teleportToPlayer(targetId)
 	local targetPed = GetPlayerPed(targetId)
 	local targetCoords = GetEntityCoords(targetPed)
 
-	exports.nCoreGTA:nNotificationMain({
-		text = "~w~Vous avez étais téléporter sur : " ..GetPlayerName(targetId) .. " (ID : " .. targetId .. ").",
-		type = 'basGauche',
-		nTimeNotif = 6000,
-	})
+    exports.nCoreGTA:ShowNotification("~w~Vous avez étais téléporter sur : " ..GetPlayerName(targetId) .. " (ID : " .. targetId)
 	SetEntityCoords(LocalPed(), targetCoords, 1, 0, 0, 1)
 end
 
@@ -166,17 +154,9 @@ function teleportToWayPoint()
 			Citizen.Wait(1)
 		end
 
-		exports.nCoreGTA:nNotificationMain({
-			text = "~w~Vous avez étais téléporter sur votre point !",
-			type = 'basGauche',
-			nTimeNotif = 6000,
-		})
+        exports.nCoreGTA:ShowNotification("~w~Vous avez étais téléporter sur votre point !")
 	else
-		exports.nCoreGTA:nNotificationMain({
-			text = "~r~Veuillez placer un marker !",
-			type = 'basGauche',
-			nTimeNotif = 6000,
-		})
+        exports.nCoreGTA:ShowNotification("~r~Veuillez placer un marker !")
 	end
 end
 
